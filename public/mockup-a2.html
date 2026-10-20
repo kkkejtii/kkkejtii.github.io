@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mockup — Hero Split Blur Morph</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #111;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #F6F3EE;
+    padding: 40px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  /* ── Header ── */
+  .page-header {
+    text-align: center;
+    max-width: 600px;
+  }
+  .page-header .label {
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(246,243,238,0.3); margin-bottom: 10px; display: block;
+  }
+  .page-header h1 {
+    font-size: 22px; font-weight: 200; letter-spacing: -0.03em; color: #F6F3EE;
+    margin-bottom: 8px;
+  }
+  .page-header p {
+    font-size: 13px; font-weight: 300; color: rgba(246,243,238,0.38); line-height: 1.6;
+  }
+
+  /* ── Frame ── */
+  .frame-wrap {
+    width: 100%;
+    max-width: 1100px;
+  }
+
+  .frame {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.07);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.04),
+      0 32px 100px rgba(0,0,0,0.7);
+    background: #080808;
+  }
+
+  /* browser bar */
+  .browser-bar {
+    height: 34px;
+    background: #1C1C1C;
+    display: flex; align-items: center;
+    padding: 0 16px; gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    flex-shrink: 0;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.r { background: #FF5F57; }
+  .dot.y { background: #FEBC2E; }
+  .dot.g { background: #28C840; }
+  .url-bar {
+    flex: 1; margin: 0 16px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 6px; height: 20px;
+    display: flex; align-items: center; padding: 0 12px;
+    font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.02em;
+  }
+
+  .frame-inner {
+    position: absolute;
+    top: 34px; left: 0; right: 0; bottom: 0;
+    overflow: hidden;
+  }
+
+  /* ══════════════════════════════════
+     HERO LAYOUT
+  ══════════════════════════════════ */
+
+  .hero {
+    position: absolute; inset: 0;
+    background: #080808;
+  }
+
+  /* LAYER 1 — blurred full-width background */
+  .blur-bg {
+    position: absolute;
+    inset: -6%;
+    width: 112%; height: 112%;
+    z-index: 1;
+  }
+  .blur-bg img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: 62% 18%;
+    filter: blur(28px) brightness(0.28) saturate(0.75);
+    display: block;
+  }
+
+  /* LAYER 2 — sharp photo right side with mask morph */
+  .sharp-right {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 56%;
+    z-index: 2;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.55) 18%, black 36%);
+    mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.55) 18%, black 36%);
+  }
+  .sharp-right img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: 62% 18%;
+    display: block;
+  }
+  .sharp-right .bottom-fade {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(8,8,8,0.55) 0%, transparent 38%);
+  }
+
+  /* LAYER 3 — gradients */
+  .grad-left {
+    position: absolute; inset: 0; z-index: 3;
+    background: linear-gradient(
+      to right,
+      rgba(8,8,8,0.72) 0%,
+      rgba(8,8,8,0.45) 28%,
+      rgba(8,8,8,0.08) 52%,
+      transparent 70%
+    );
+  }
+  .grad-bottom {
+    position: absolute; inset: 0; z-index: 3;
+    background: linear-gradient(to top, rgba(8,8,8,0.82) 0%, transparent 30%);
+  }
+  .grad-top {
+    position: absolute; inset: 0; z-index: 3;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.42) 0%, transparent 18%);
+  }
+
+  /* TEXT */
+  .hero-text {
+    position: absolute; inset: 0; z-index: 20;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 32px 40px 40px;
+  }
+
+  .eyebrow {
+    font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(230,222,210,0.38); margin-bottom: 14px;
+  }
+
+  .name-line {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 300;
+    font-size: clamp(42px, 7.5vw, 90px);
+    letter-spacing: -0.02em;
+    line-height: 0.88;
+    color: #F7F4EF;
+  }
+  .name-line.dim { color: rgba(230,222,210,0.34); margin-bottom: 22px; }
+
+  .tagline {
+    font-size: 11px; font-weight: 300;
+    color: rgba(230,222,210,0.42); line-height: 1.7;
+    max-width: 240px; margin-bottom: 22px;
+  }
+
+  .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn-w {
+    padding: 10px 22px; border-radius: 11px;
+    background: #F7F4EF; color: #0D0D0D;
+    font-size: 11px; font-weight: 400; letter-spacing: 0.03em; border: none; cursor: pointer;
+  }
+  .btn-g {
+    padding: 9px 20px; border-radius: 11px;
+    background: transparent; color: rgba(255,255,255,0.72);
+    font-size: 11px; font-weight: 400; letter-spacing: 0.03em;
+    border: 1px solid rgba(255,255,255,0.18); cursor: pointer;
+  }
+
+  /* scroll line */
+  .scroll-line {
+    position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%);
+    width: 1px; height: 32px;
+    background: linear-gradient(to bottom, rgba(230,222,210,0.28), transparent);
+    z-index: 30;
+  }
+
+  /* est */
+  .est {
+    position: absolute; top: 52px; right: 28px; z-index: 30;
+    font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(230,222,210,0.18);
+  }
+
+  /* NAV overlay */
+  .nav-overlay {
+    position: absolute; top: 0; left: 0; right: 0; height: 46px;
+    z-index: 40;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 28px;
+  }
+  .nav-logo-sm {
+    font-size: 11px; font-weight: 300; letter-spacing: -0.01em;
+    color: rgba(246,243,238,0.65);
+  }
+  .nav-links-sm { display: flex; gap: 20px; }
+  .nav-link-sm {
+    font-size: 9px; letter-spacing: 0.04em; color: rgba(246,243,238,0.45);
+  }
+  .nav-cta-sm {
+    font-size: 9px; padding: 5px 14px; border-radius: 8px;
+    background: rgba(247,244,239,0.1); border: 1px solid rgba(247,244,239,0.15);
+    color: rgba(246,243,238,0.7); letter-spacing: 0.04em;
+  }
+
+  /* ── Notes ── */
+  .notes {
+    max-width: 1100px; width: 100%;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .note {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px; padding: 18px 20px;
+  }
+  .note .n-label {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(246,243,238,0.28); margin-bottom: 8px; display: block;
+  }
+  .note .n-text {
+    font-size: 13px; font-weight: 300; color: rgba(246,243,238,0.65); line-height: 1.6;
+  }
+
+  /* ── Approve bar ── */
+  .approve-bar {
+    max-width: 1100px; width: 100%;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 20px 28px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: rgba(255,255,255,0.03);
+  }
+  .approve-bar p { font-size: 13px; font-weight: 300; color: rgba(246,243,238,0.4); }
+  .approve-bar span { font-size: 13px; font-weight: 300; color: rgba(246,243,238,0.7); }
+</style>
+</head>
+<body>
+
+  <div class="page-header">
+    <span class="label">Mockup — Wersja A finalna</span>
+    <h1>Split Editorial — Blur Morph</h1>
+    <p>Zdjęcie w kapeluszu · lewa strona = rozmyta kontynuacja · płynne przejście przez mask-image gradient</p>
+  </div>
+
+  <!-- FRAME -->
+  <div class="frame-wrap">
+    <div class="frame">
+      <!-- Browser bar -->
+      <div class="browser-bar">
+        <div class="dot r"></div>
+        <div class="dot y"></div>
+        <div class="dot g"></div>
+        <div class="url-bar">kkkejtii.pl</div>
+      </div>
+
+      <div class="frame-inner">
+        <div class="hero">
+
+          <!-- L1: blurred bg -->
+          <div class="blur-bg">
+            <img src="/photo.png" alt="" />
+          </div>
+
+          <!-- L2: sharp right with morph mask -->
+          <div class="sharp-right">
+            <img src="/photo.png" alt="Katarzyna Kołodziej" />
+            <div class="bottom-fade"></div>
+          </div>
+
+          <!-- L3: gradients -->
+          <div class="grad-left"></div>
+          <div class="grad-bottom"></div>
+          <div class="grad-top"></div>
+
+          <!-- Nav -->
+          <div class="nav-overlay">
+            <span class="nav-logo-sm">Katarzyna Kołodziej</span>
+            <div class="nav-links-sm">
+              <span class="nav-link-sm">About</span>
+              <span class="nav-link-sm">Archive</span>
+              <span class="nav-link-sm">Contact</span>
+            </div>
+            <span class="nav-cta-sm">Work With Me</span>
+          </div>
+
+          <!-- Est. -->
+          <div class="est">Est. 2021</div>
+
+          <!-- Text -->
+          <div class="hero-text">
+            <div style="max-width:46%">
+              <p class="eyebrow">Marketing · Content Creation · Warszawa</p>
+              <div class="name-line">Katarzyna</div>
+              <div class="name-line dim">Kołodziej</div>
+              <p class="tagline">Łączę kreatywność z analityką,<br/>by tworzyć kampanie, które działają.</p>
+              <div class="btns">
+                <button class="btn-w">See My Work</button>
+                <button class="btn-g">Get in Touch</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scroll -->
+          <div class="scroll-line"></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notes -->
+  <div class="notes">
+    <div class="note">
+      <span class="n-label">Lewa strona</span>
+      <p class="n-text">Rozmyta kontynuacja tego samego zdjęcia — blur 28px, brightness 0.28. Kolory i atmosfera deszczu płynnie wychodzą za kadr.</p>
+    </div>
+    <div class="note">
+      <span class="n-label">Przejście</span>
+      <p class="n-text">mask-image gradient: transparent → czarny na 36% szerokości. Zero twardych krawędzi — obraz morfuje z rozmytego w ostry.</p>
+    </div>
+    <div class="note">
+      <span class="n-label">Prawa strona</span>
+      <p class="n-text">Ostry, pełny kadr zdjęcia. Cała postać, kapelusz, płaszcz, architektura ulicy — widoczne bez przycinania.</p>
+    </div>
+  </div>
+
+  <!-- Approve bar -->
+  <div class="approve-bar">
+    <p>Jeśli efekt Ci odpowiada — powiedz <span>„wdróż"</span> a zastąpię obecne Hero tym layoutem.</p>
+  </div>
+
+</body>
+</html>

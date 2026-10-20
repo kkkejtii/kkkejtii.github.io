@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hero Mockups — Katarzyna Kołodziej</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0D0D0D;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #F6F3EE;
+  }
+
+  /* ── Nav ── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 40px;
+    background: rgba(13,13,13,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-logo { font-size: 14px; font-weight: 300; letter-spacing: -0.01em; color: rgba(246,243,238,0.7); }
+  .nav-links { display: flex; gap: 12px; }
+  .nav-pill {
+    padding: 7px 18px; border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.15);
+    font-size: 12px; font-weight: 400; letter-spacing: 0.06em;
+    text-transform: uppercase; cursor: pointer;
+    color: rgba(246,243,238,0.55);
+    background: transparent;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+  .nav-pill:hover { border-color: rgba(255,255,255,0.35); color: #F6F3EE; }
+  .nav-pill.active { background: #F6F3EE; color: #0D0D0D; border-color: #F6F3EE; }
+
+  /* ── Page layout ── */
+  .page { padding-top: 72px; }
+
+  /* ── Section title ── */
+  .section-title {
+    text-align: center;
+    padding: 56px 40px 32px;
+  }
+  .section-title .label {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(246,243,238,0.3); margin-bottom: 12px; display: block;
+  }
+  .section-title h2 {
+    font-size: 28px; font-weight: 200; letter-spacing: -0.03em;
+    color: #F6F3EE;
+  }
+  .section-title p {
+    margin-top: 10px; font-size: 14px; font-weight: 300;
+    color: rgba(246,243,238,0.4); max-width: 480px; margin-inline: auto; line-height: 1.65;
+  }
+
+  /* ── Mockup wrapper ── */
+  .mockup-wrap {
+    max-width: 1100px; margin: 0 auto;
+    padding: 0 40px 80px;
+    display: flex; flex-direction: column; gap: 80px;
+  }
+
+  .mockup-block {}
+
+  .mockup-label {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 20px;
+  }
+  .mockup-label .badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 1px solid rgba(246,243,238,0.2);
+    font-size: 13px; font-weight: 300; color: rgba(246,243,238,0.5);
+    flex-shrink: 0;
+  }
+  .mockup-label .rec {
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: #A8824A; background: rgba(168,130,74,0.12);
+    padding: 3px 10px; border-radius: 100px;
+  }
+  .mockup-label h3 {
+    font-size: 18px; font-weight: 300; letter-spacing: -0.02em; color: #F6F3EE;
+  }
+  .mockup-label p {
+    font-size: 13px; font-weight: 300; color: rgba(246,243,238,0.4);
+    margin-top: 2px;
+  }
+
+  /* ── Mockup frame ── */
+  .frame {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.07);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+  }
+
+  /* browser chrome */
+  .frame::before {
+    content: '● ● ●';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 32px; line-height: 32px;
+    background: rgba(30,30,30,0.95);
+    font-size: 9px; letter-spacing: 4px;
+    color: rgba(255,255,255,0.2);
+    padding: 0 16px;
+    z-index: 50;
+  }
+
+  .frame-inner {
+    position: absolute;
+    inset: 32px 0 0 0;
+    overflow: hidden;
+    background: #080808;
+  }
+
+  /* ══════════════════════════════════════
+     OPCJA A — Split editorial
+  ══════════════════════════════════════ */
+  .split-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100%;
+  }
+
+  .split-left {
+    background: #0A0A0A;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 32px 36px;
+    position: relative;
+  }
+
+  .split-left::after {
+    content: '';
+    position: absolute; top: 0; right: 0; bottom: 0; width: 80px;
+    background: linear-gradient(to right, transparent, rgba(8,8,8,0.4));
+    z-index: 1;
+  }
+
+  .split-left .eyebrow {
+    font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(230,222,210,0.35); margin-bottom: 14px;
+  }
+  .split-left .name {
+    font-family: Georgia, serif;
+    font-weight: 300; font-size: 54px;
+    letter-spacing: -0.02em; line-height: 0.88;
+    color: #F7F4EF;
+  }
+  .split-left .name-dim { color: rgba(230,222,210,0.32); }
+  .split-left .sub {
+    margin-top: 20px; font-size: 11px; font-weight: 300;
+    color: rgba(230,222,210,0.4); line-height: 1.65; max-width: 220px;
+  }
+  .split-left .btns {
+    margin-top: 22px; display: flex; gap: 10px;
+  }
+  .btn-w {
+    padding: 9px 20px; border-radius: 10px;
+    background: #F7F4EF; color: #0D0D0D;
+    font-size: 11px; font-weight: 400; letter-spacing: 0.03em;
+    border: none; cursor: pointer;
+  }
+  .btn-g {
+    padding: 8px 18px; border-radius: 10px;
+    background: transparent; color: rgba(255,255,255,0.7);
+    font-size: 11px; font-weight: 400; letter-spacing: 0.03em;
+    border: 1px solid rgba(255,255,255,0.18); cursor: pointer;
+  }
+
+  .split-right {
+    position: relative; overflow: hidden;
+  }
+  .split-right img {
+    width: 100%; height: 100%; object-fit: cover; object-position: 55% 10%;
+    display: block;
+  }
+  .split-right .edge-fade {
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, rgba(8,8,8,0.35) 0%, transparent 25%),
+                linear-gradient(to top, rgba(8,8,8,0.4) 0%, transparent 30%);
+  }
+
+  /* ══════════════════════════════════════
+     OPCJA B — Centrowane, ciemne flanki
+  ══════════════════════════════════════ */
+  .centered-hero {
+    height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    background: #080808;
+  }
+
+  .centered-hero .video-column {
+    height: 100%;
+    aspect-ratio: 9/16;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .centered-hero .video-column img {
+    width: 100%; height: 100%; object-fit: cover; object-position: 55% 10%;
+  }
+  .centered-hero .video-column::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(8,8,8,0.65) 0%, transparent 45%);
+    z-index: 1;
+  }
+
+  /* left flank */
+  .centered-hero .flank-left {
+    flex: 1;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 28px 36px;
+    height: 100%;
+  }
+  .centered-hero .flank-right {
+    flex: 1;
+    height: 100%;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 28px 36px;
+  }
+
+  .centered-hero .eyebrow {
+    font-size: 7px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(230,222,210,0.28); margin-bottom: 10px;
+  }
+  .centered-hero .big-name {
+    font-family: Georgia, serif; font-weight: 300;
+    font-size: 32px; letter-spacing: -0.02em; line-height: 0.9;
+    color: #F7F4EF;
+  }
+  .centered-hero .big-name-dim { color: rgba(230,222,210,0.28); }
+  .centered-hero .desc {
+    margin-top: 14px; font-size: 10px; font-weight: 300;
+    color: rgba(230,222,210,0.35); line-height: 1.65;
+  }
+  .centered-hero .btns-b { margin-top: 16px; display: flex; gap: 8px; flex-direction: column; }
+
+  /* dark flanks decoration */
+  .flank-line {
+    width: 1px; height: 40px; background: rgba(255,255,255,0.08); margin-bottom: 12px;
+  }
+  .est { font-size: 8px; letter-spacing: 0.18em; color: rgba(230,222,210,0.18); text-transform: uppercase; }
+
+  /* ══════════════════════════════════════
+     OPCJA C — Cover przybliżony
+  ══════════════════════════════════════ */
+  .cover-hero {
+    height: 100%; position: relative; overflow: hidden;
+  }
+  .cover-hero img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: 55% 18%;
+  }
+  .cover-hero .gradient-left {
+    position: absolute; inset: 0;
+    background: linear-gradient(105deg,
+      rgba(8,8,8,0.88) 0%,
+      rgba(8,8,8,0.6) 35%,
+      rgba(8,8,8,0.15) 60%,
+      rgba(8,8,8,0.05) 100%);
+  }
+  .cover-hero .gradient-bottom {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(8,8,8,0.8) 0%, transparent 45%);
+  }
+  .cover-hero .text-block {
+    position: absolute; bottom: 32px; left: 32px;
+  }
+  .cover-hero .eyebrow {
+    font-size: 7px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(230,222,210,0.35); margin-bottom: 10px;
+  }
+  .cover-hero .name {
+    font-family: Georgia, serif; font-weight: 300;
+    font-size: 56px; letter-spacing: -0.02em; line-height: 0.88;
+    color: #F7F4EF;
+  }
+  .cover-hero .name-dim { color: rgba(230,222,210,0.32); }
+  .cover-hero .sub {
+    margin-top: 16px; font-size: 10px; font-weight: 300;
+    color: rgba(230,222,210,0.42); max-width: 200px; line-height: 1.65;
+  }
+  .cover-hero .btns {
+    margin-top: 18px; display: flex; gap: 8px;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    border: none; height: 1px;
+    background: rgba(255,255,255,0.06);
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  /* ── Scroll hint ── */
+  .scroll-line {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    width: 1px; height: 28px;
+    background: linear-gradient(to bottom, rgba(230,222,210,0.3), transparent);
+    z-index: 10;
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <span class="nav-logo">Katarzyna Kołodziej</span>
+  <div class="nav-links">
+    <a class="nav-pill active" href="#a">A — Split</a>
+    <a class="nav-pill" href="#b">B — Centrowane</a>
+    <a class="nav-pill" href="#c">C — Cover</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- ═══════════════════════════════════ OPCJA A -->
+  <div id="a">
+    <div class="section-title">
+      <span class="label">Opcja A</span>
+      <h2>Split Editorial</h2>
+      <p>Tekst po lewej na ciemnym tle · Wideo po prawej w pełnej wysokości, naturalny format bez przycinania</p>
+    </div>
+
+    <div class="mockup-wrap" style="padding-bottom:0">
+      <div class="mockup-block">
+        <div class="mockup-label">
+          <div class="badge">A</div>
+          <div>
+            <h3>Split Editorial &nbsp;<span class="rec">Rekomendowana</span></h3>
+            <p>Saint Laurent · Celine · The Row — klasyczny układ luxury fashion</p>
+          </div>
+        </div>
+        <div class="frame">
+          <div class="frame-inner">
+            <div class="split-hero">
+
+              <!-- LEFT TEXT -->
+              <div class="split-left">
+                <p class="eyebrow">Marketing · Content Creation · Warszawa</p>
+                <div class="name">
+                  Katarzyna<br/>
+                  <span class="name-dim">Kołodziej</span>
+                </div>
+                <p class="sub">Łączę kreatywność z analityką, by tworzyć kampanie, które działają.</p>
+                <div class="btns">
+                  <button class="btn-w">See My Work</button>
+                  <button class="btn-g">Get in Touch</button>
+                </div>
+              </div>
+
+              <!-- RIGHT VIDEO -->
+              <div class="split-right">
+                <img src="/hero.png" alt="hero" />
+                <div class="edge-fade"></div>
+              </div>
+
+            </div>
+            <div class="scroll-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br/><hr class="divider"/><br/>
+
+  <!-- ═══════════════════════════════════ OPCJA B -->
+  <div id="b">
+    <div class="section-title">
+      <span class="label">Opcja B</span>
+      <h2>Centrowane wideo · Ciemne flanki</h2>
+      <p>Wideo w naturalnym formacie pośrodku · tekst rozłożony na boki · elegancka symetria</p>
+    </div>
+
+    <div class="mockup-wrap" style="padding-bottom:0">
+      <div class="mockup-block">
+        <div class="mockup-label">
+          <div class="badge">B</div>
+          <div>
+            <h3>Tryptyk — wideo + dwa panele tekstu</h3>
+            <p>Wideo nie jest przycinane · pełna postać i tło widoczne · bardzo kino-edytorskie</p>
+          </div>
+        </div>
+        <div class="frame">
+          <div class="frame-inner">
+            <div class="centered-hero">
+
+              <!-- FLANK LEFT -->
+              <div class="flank-left">
+                <div class="flank-line"></div>
+                <p class="est">Est. 2021</p>
+                <div style="flex:1"></div>
+                <div class="big-name">
+                  Katarzyna<br/>
+                  <span class="big-name-dim">Kołodziej</span>
+                </div>
+                <div class="btns-b">
+                  <button class="btn-w" style="font-size:9px;padding:7px 14px">See My Work</button>
+                  <button class="btn-g" style="font-size:9px;padding:6px 14px">Get in Touch</button>
+                </div>
+              </div>
+
+              <!-- VIDEO CENTER -->
+              <div class="video-column">
+                <img src="/hero.png" alt="hero" />
+              </div>
+
+              <!-- FLANK RIGHT -->
+              <div class="flank-right">
+                <div class="flank-line" style="margin-left:auto"></div>
+                <div style="flex:1"></div>
+                <p class="eyebrow" style="text-align:right">Marketing · Content</p>
+                <p class="desc" style="text-align:right;margin-left:auto">
+                  Łączę kreatywność z analityką,<br/>by tworzyć kampanie,<br/>które działają.
+                </p>
+                <div style="height:40px"></div>
+              </div>
+
+            </div>
+            <div class="scroll-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br/><hr class="divider"/><br/>
+
+  <!-- ═══════════════════════════════════ OPCJA C -->
+  <div id="c">
+    <div class="section-title">
+      <span class="label">Opcja C</span>
+      <h2>Cover z precyzyjnym kadrowaniem</h2>
+      <p>Wideo wypełnia całość · objectPosition dopasowane tak by twarz i sylwetka były zawsze w centrum</p>
+    </div>
+
+    <div class="mockup-wrap">
+      <div class="mockup-block">
+        <div class="mockup-label">
+          <div class="badge">C</div>
+          <div>
+            <h3>Full-bleed cover — postać na pierwszym planie</h3>
+            <p>Obraz przycięty · ale postać zawsze widoczna · tekst na ciemnym gradiencie po lewej</p>
+          </div>
+        </div>
+        <div class="frame">
+          <div class="frame-inner">
+            <div class="cover-hero">
+              <img src="/hero.png" alt="hero" />
+              <div class="gradient-left"></div>
+              <div class="gradient-bottom"></div>
+              <div class="text-block">
+                <p class="eyebrow">Marketing · Warszawa</p>
+                <div class="name">
+                  Katarzyna<br/>
+                  <span class="name-dim">Kołodziej</span>
+                </div>
+                <p class="sub">Łączę kreatywność z analityką, by tworzyć kampanie, które działają.</p>
+                <div class="btns">
+                  <button class="btn-w">See My Work</button>
+                  <button class="btn-g">Get in Touch</button>
+                </div>
+              </div>
+            </div>
+            <div class="scroll-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Smooth scroll + active state
+  document.querySelectorAll('.nav-pill').forEach(pill => {
+    pill.addEventListener('click', function() {
+      document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
