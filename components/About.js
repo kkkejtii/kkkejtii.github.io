@@ -123,7 +123,7 @@ export default function About() {
               objectPosition: 'center center',
             }}
           >
-            <source src="/wideo 2.mp4" type="video/mp4" />
+            <source src="/video.mp4" type="video/mp4" />
           </video>
           {/* Bottom fade */}
           <div style={{

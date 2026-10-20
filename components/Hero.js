@@ -30,7 +30,7 @@ export default function Hero() {
 
         {/* Warstwa 1 — pełne tło (zdjęcie poziome) */}
         <Image
-          src="/landing page.png"
+          src="/landing-page.png"
           alt=""
           fill
           priority
