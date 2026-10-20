@@ -1,0 +1,19 @@
+import { projects } from '../lib/projects';
+import { SITE_URL } from '../lib/site';
+
+export const dynamic = 'force-static';
+
+export default function sitemap() {
+  const now = new Date();
+
+  return [
+    { url: `${SITE_URL}/`, lastModified: now, changeFrequency: 'monthly', priority: 1 },
+    { url: `${SITE_URL}/archive/`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    ...projects.map((p) => ({
+      url: `${SITE_URL}/archive/${p.slug}/`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.6,
+    })),
+  ];
+}

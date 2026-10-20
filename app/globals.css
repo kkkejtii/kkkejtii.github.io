@@ -48,15 +48,6 @@
   --r-lg:   16px;
   --r-xl:   24px;
 
-  /* ── Legacy aliases ─────────────────────────────────────────────
-     Starsze podstrony (/o-mnie, /moje-projekty) używają nazw zmiennych
-     z poprzedniego systemu. Mapowanie na obecną paletę, żeby renderowały
-     się spójnie. Docelowo: przepisać te strony na nowe nazwy i usunąć. */
-  --cream:         var(--off-white);
-  --accent:        var(--gold);
-  --black:         var(--warm-black);
-  --gray:          var(--mid-gray);
-  --font-dm-sans:  var(--font-primary);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -636,4 +627,26 @@ button { font-family: inherit; cursor: pointer; }
   }
   .cursor-dot, .cursor-ring { display: none; }
   html { scroll-behavior: auto; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   UKŁAD MOBILNY (≤768px)
+   Klasy siatek istniały w komponentach, ale nie miały tu definicji —
+   dwie kolumny zostawały też na telefonie.
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  /* Tailwind jest importowany na początku pliku, więc .btn-primary
+     wygrywa z .hidden i przycisk CTA zostawał widoczny obok hamburgera. */
+  .hidden { display: none !important; }
+
+  /* !important, bo liczba kolumn jest zapisana w stylach inline. */
+  .about-intro-grid,
+  .about-split-grid,
+  .svc-header-grid,
+  .contact-grid,
+  .work-grid,
+  .detail-cols {
+    grid-template-columns: 1fr !important;
+  }
 }

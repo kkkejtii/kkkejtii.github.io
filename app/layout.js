@@ -1,5 +1,6 @@
 import { Inter, Cormorant_Garamond, Pinyon_Script, Montserrat } from 'next/font/google';
 import './globals.css';
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from '../lib/site';
 
 // Primary: Inter — Apple-quality geometric sans
 const inter = Inter({
@@ -35,14 +36,31 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata = {
-  title: 'Katarzyna Kołodziej',
-  description: 'Marketing Strategist · Content Creator · Creative Direction · Warszawa',
-  keywords: 'marketing, content creation, personal branding, modeling, Warszawa, Poland',
-  openGraph: {
-    title: 'Katarzyna Kołodziej',
-    description: 'Marketing Strategist · Content Creator · Creative Direction',
-    type: 'website',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — Marketing Strategist & Content Creator`,
+    template: `%s — ${SITE_NAME}`,
   },
+  description: SITE_DESCRIPTION,
+  keywords: ['marketing', 'content creation', 'personal branding', 'creative direction', 'Warszawa'],
+  authors: [{ name: SITE_NAME }],
+  alternates: { canonical: '/' },
+  openGraph: {
+    title: `${SITE_NAME} — Marketing Strategist & Content Creator`,
+    description: SITE_DESCRIPTION,
+    url: '/',
+    siteName: SITE_NAME,
+    locale: 'pl_PL',
+    type: 'website',
+    images: [{ url: '/og.jpg', width: 1200, height: 630, alt: SITE_NAME }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${SITE_NAME} — Marketing Strategist & Content Creator`,
+    description: SITE_DESCRIPTION,
+    images: ['/og.jpg'],
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }) {

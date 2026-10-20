@@ -87,40 +87,44 @@ export default function Hero() {
             Marketing · Content Creation
           </motion.p>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.05, delay: 0.42, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              fontFamily: 'var(--font-script)',
-              fontWeight: 400,
-              fontSize: 'clamp(58px, 9vw, 136px)',
-              letterSpacing: '0.01em',
-              lineHeight: 1.15,
-              color: '#F5EFE4',
-              marginBottom: 0,
-            }}
-          >
-            Katarzyna
-          </motion.h1>
+          <h1 style={{ margin: 0 }}>
+            <motion.span
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.05, delay: 0.42, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                display: 'block',
+                fontFamily: 'var(--font-script)',
+                fontWeight: 400,
+                fontSize: 'clamp(58px, 9vw, 136px)',
+                letterSpacing: '0.01em',
+                lineHeight: 1.15,
+                color: '#F5EFE4',
+                marginBottom: 0,
+              }}
+            >
+              Katarzyna
+            </motion.span>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.05, delay: 0.56, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              fontFamily: 'var(--font-montserrat)',
-              fontWeight: 200,
-              fontSize: 'clamp(22px, 3.2vw, 48px)',
-              letterSpacing: '0.28em',
-              lineHeight: 1.1,
-              color: 'rgba(230,222,210,0.55)',
-              textTransform: 'uppercase',
-              marginBottom: 'clamp(28px, 4vw, 48px)',
-            }}
-          >
-            Kołodziej
-          </motion.h1>
+            <motion.span
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.05, delay: 0.56, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                display: 'block',
+                fontFamily: 'var(--font-montserrat)',
+                fontWeight: 200,
+                fontSize: 'clamp(22px, 3.2vw, 48px)',
+                letterSpacing: '0.28em',
+                lineHeight: 1.1,
+                color: 'rgba(230,222,210,0.55)',
+                textTransform: 'uppercase',
+                marginBottom: 'clamp(28px, 4vw, 48px)',
+              }}
+            >
+              Kołodziej
+            </motion.span>
+          </h1>
 
           <motion.div
             initial={{ opacity: 0, y: 16 }}

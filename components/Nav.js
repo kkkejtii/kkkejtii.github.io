@@ -93,7 +93,7 @@ export default function Nav({ inverted = false }) {
           </Link>
 
           {/* ── Center: nav links (desktop) ── */}
-          <nav style={{ display: 'flex', gap: 36 }} className="hidden md:flex">
+          <nav style={{ gap: 36 }} className="hidden md:flex">
             {navLinks.map(link => (
               <button
                 key={link.href}
