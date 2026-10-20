@@ -257,7 +257,7 @@ export default function ArchivePage() {
         }}>
           {/* Background photo */}
           <Image
-            src="/archive.png"
+            src="/archive.webp"
             alt=""
             fill
             priority
