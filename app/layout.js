@@ -61,6 +61,13 @@ export const metadata = {
     images: ['/og.jpg'],
   },
   robots: { index: true, follow: true },
+  // Potwierdzenie wlasnosci strony w Google Search Console.
+  // To nie jest haslo ani token dostepu — ciag jest celowo widoczny w kodzie
+  // strony. NIE USUWAC: Google sprawdza go okresowo i cofnie dostep do raportow,
+  // jesli zniknie. Szczegoly w SEO-GOOGLE.md.
+  verification: {
+    google: 'NKPAosNutvHsw9vtSQkIlFmpBzx-hG8qcJalk4Xa-wY',
+  },
 };
 
 export default function RootLayout({ children }) {
