@@ -1,0 +1,53 @@
+# Buduje stronę i publikuje ją na GitHub Pages przy każdej zmianie w gałęzi main.
+# Możesz też uruchomić ręcznie: zakładka Actions → Publikacja na GitHub Pages → Run workflow.
+name: Publikacja na GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Uprawnienia potrzebne, żeby workflow mógł opublikować stronę.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Gdy wypchniesz kilka zmian pod rząd, liczy się tylko ostatnia.
+# "cancel-in-progress: false" — trwająca publikacja kończy się spokojnie,
+# żeby strona nie została w połowie podmieniona.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # "npm ci" instaluje dokładnie wersje z package-lock.json —
+      # dzięki temu serwer buduje to samo, co było sprawdzone lokalnie.
+      - run: npm ci
+
+      - run: npm run build
+
+      # next.config.ts ma output: 'export', więc gotowa strona ląduje w out/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
