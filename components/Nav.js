@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, useScroll, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { SITE_EMAIL } from '../lib/site';
 
 const navLinks = [
   { label: 'About',   href: '/#about' },
@@ -191,7 +192,7 @@ export default function Nav({ inverted = false }) {
               style={{ position: 'absolute', bottom: 40, left: 'var(--gutter)' }}
             >
               <p className="t-label" style={{ color: 'rgba(246,243,238,0.25)' }}>
-                katarzyna.teres.kolodziej@gmail.com
+                {SITE_EMAIL}
               </p>
             </motion.div>
 

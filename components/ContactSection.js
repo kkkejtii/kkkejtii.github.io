@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { SITE_EMAIL } from '../lib/site';
 
 const ease = [0.25, 0.46, 0.45, 0.94];
 
@@ -24,15 +25,15 @@ const socials = [
 ];
 
 export default function ContactSection() {
-  const [form,    setForm]    = useState({ name: '', email: '', message: '' });
-  const [sent,    setSent]    = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [sent, setSent] = useState(false);
 
-  const submit = async (e) => {
+  const submit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    await new Promise(r => setTimeout(r, 1000));
-    setLoading(false);
+    const subject = `Zapytanie ze strony — ${form.name}`;
+    const body = `${form.message}\n\n—\n${form.name}\n${form.email}`;
+    window.location.href =
+      `mailto:${SITE_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSent(true);
   };
 
@@ -85,10 +86,16 @@ export default function ContactSection() {
                   letterSpacing: '-0.03em', color: 'var(--warm-black)',
                   marginBottom: 12,
                 }}>
-                  Message received.
+                  Almost there.
                 </h3>
-                <p style={{ fontFamily: 'var(--font-primary)', fontWeight: 300, fontSize: 15, color: 'var(--mid-gray)' }}>
-                  Odezwę się w ciągu 24 godzin.
+                <p style={{ fontFamily: 'var(--font-primary)', fontWeight: 300, fontSize: 15, color: 'var(--mid-gray)', lineHeight: 1.6 }}>
+                  Otworzyłam Twój program pocztowy z gotową wiadomością — wyślij ją,
+                  a odezwę się w ciągu 24 godzin.
+                  <br />
+                  Jeśli nic się nie otworzyło, napisz bezpośrednio na{' '}
+                  <a href={`mailto:${SITE_EMAIL}`} style={{ color: 'var(--warm-black)', textDecoration: 'underline' }}>
+                    {SITE_EMAIL}
+                  </a>.
                 </p>
               </motion.div>
             ) : (
@@ -152,16 +159,13 @@ export default function ContactSection() {
                 <Fade delay={0.36}>
                   <button
                     type="submit"
-                    disabled={loading}
                     className="btn-primary"
-                    style={{ marginTop: 36, alignSelf: 'flex-start', opacity: loading ? 0.6 : 1 }}
+                    style={{ marginTop: 36, alignSelf: 'flex-start' }}
                   >
-                    {loading ? 'Sending…' : 'Send Message'}
-                    {!loading && (
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-                        <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    )}
+                    Send Message
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+                      <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                   </button>
                 </Fade>
               </form>
@@ -176,7 +180,7 @@ export default function ContactSection() {
               <div>
                 <p className="t-label" style={{ marginBottom: 16 }}>Direct</p>
                 <a
-                  href="mailto:katarzyna.teres.kolodziej@gmail.com"
+                  href={`mailto:${SITE_EMAIL}`}
                   style={{
                     fontFamily: 'var(--font-primary)', fontWeight: 200,
                     fontSize: 'clamp(14px, 2vw, 19px)',
@@ -188,7 +192,7 @@ export default function ContactSection() {
                   onMouseEnter={e => e.currentTarget.style.borderBottomColor = 'var(--warm-black)'}
                   onMouseLeave={e => e.currentTarget.style.borderBottomColor = 'var(--beige)'}
                 >
-                  katarzyna.teres.kolodziej@gmail.com
+                  {SITE_EMAIL}
                 </a>
               </div>
             </Fade>
